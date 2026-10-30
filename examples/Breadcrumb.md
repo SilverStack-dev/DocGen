@@ -42,12 +42,12 @@ Only the controller and action are considered when comparing links. Additional r
 
 The parameter order is intentionally (controller, action) to encourage developers to think about the target page being identified. This differs from the order used by some ASP.NET helper methods.
 
-In these methods the nameof operator can be used to provide the `controller` parameter as the `Controller` suffix is automatically removed.
+In these methods the `nameof` operator can be used to provide the `controller` parameter as the `Controller` suffix is automatically removed.
 
 See:
-- [HasLink(*controller*, *action*)](#haslinkcontrollert-action)
-- [RemoveLink(*controller*, *action*)](#removelinkcontroller-action)
-- [ClearLink(*controller*, *action*)](#clearlinkcontroller-action)
+- [HasLink(*controller*, *action*)](#haslink(*controller*,-*action*))
+- [RemoveLink(*controller*, *action*)](#removelink(*controller*,-*action*))
+- [ClearLink(*controller*, *action*)](#clearlink(*controller*,-*action*))
 
 ## Properties
 
@@ -260,7 +260,7 @@ Return `true` is a breadcrumb link or placeholder with the given `name` exists i
 
 **Example**
 
-To determine whether the "Example" breadcurmb is present:
+To determine whether the "Example" breadcrumb is present:
 ```csharp
 if ( user.Breadcrumbs.HasName("Example") ) {
   // Breadcrumb is present
@@ -270,7 +270,7 @@ if ( user.Breadcrumbs.HasName("Example") ) {
 ```
 </div>
 
-### HasLink(*controllert*, *action*)
+### HasLink(*controller*, *action*)
 <div style="margin-left: 1em;">
 
 ```CSharp
@@ -288,7 +288,7 @@ Return `true` if a breadcrumb with a link to the given `action` within the given
 **Remarks**
 
 See [Link Matching](#link-matching).
-	
+
 **Exceptions**
 
 | Exception | Description |
@@ -324,7 +324,7 @@ Return `true` if a breadcrumb with a link to the given `url` is in the breadcrum
 **Remarks**
 - Additional routing information is not included in the comparison.
 - `url` is defined as nullable to allow the result of a `Url.Action()`, however, a `null` value will throw a Argument Null exception.
-	
+
 **Exceptions**
 
 |   Exception   | Description |
@@ -347,7 +347,7 @@ if ( user.Breadcrumbs.HasLink(Url.Action("Index", "Example")) ) {
 ## Removing Pages
 <div style="margin-left: 1em;">
 
-The following methods allow the removal of breadcumb items (link or placeholders) from the trail.  They all return an indicator as to whether any items where removed, this can be used to determine where to send the user once the current operation is complete.
+The following methods allow the removal of breadcrumb items (link or placeholders) from the trail.  They all return an indicator as to whether any items where removed, this can be used to determine where to send the user once the current operation is complete.
 
 ### RemoveName(*name*)
 <div style="margin-left: 1em;">
@@ -356,7 +356,7 @@ The following methods allow the removal of breadcumb items (link or placeholders
 Crumb? RemoveName(string name)
 ```
 
-Remove the item with the given `name` from the trail, returning the item that was removed or `null` if the item was not found.  the controller can inspect the `Link` property this value to determing which breadcrumb was removed.
+Remove the item with the given `name` from the trail, returning the item that was removed or `null` if the item was not found.  the controller can inspect the `Link` property this value to determine which breadcrumb was removed.
 
 **Parameters**
 
@@ -372,7 +372,7 @@ Remove the item with the given `name` from the trail, returning the item that wa
 
 **Example**
 
-To remove the breadrumb item "Example" from the trail:
+To remove the breadcrumb item "Example" from the trail:
 ```csharp
 Crumb? crumb = user.Breadcrumbs.RemoveName("Example");
 if ( crumb is null ) {
@@ -390,7 +390,7 @@ if ( crumb is null ) {
 int RemoveLink(string controller, string action)
 ```
 
-Remove the item with the with a link to the given `action` within the given `controller` from the the trail, returning the number of items that have been removed.  This will ignore any additional routing parameters in the link, so may match multiple links, or none.
+Remove the item with the with a link to the given `action` within the given `controller` from the trail, returning the number of items that have been removed.  This will ignore any additional routing parameters in the link, so may match multiple links, or none.
 
 **Parameters**
 
@@ -411,7 +411,7 @@ See [Link Matching](#link-matching).
 
 **Example**
 
-To remove the breadrumb with a reference to the Index action of the Example controller from the trail:
+To remove the breadcrumb with a reference to the Index action of the Example controller from the trail:
 ```csharp
 if ( user.Breadcrumbs.RemoveLink(nameof(ExampleController), nameof(ExampleController.Index) > 0 ) {
   // Breadcrumbs where removed
@@ -428,7 +428,7 @@ if ( user.Breadcrumbs.RemoveLink(nameof(ExampleController), nameof(ExampleContro
 int RemoveLink(string? url)
 ```
 
-Remove the item with the with a link to the given `url` from the the trail, returning the number of items that have been removed.  This will ignore any additional routing parameters in the link, so may match multiple links, or none.
+Remove the item with the with a link to the given `url` from the trail, returning the number of items that have been removed.  This will ignore any additional routing parameters in the link, so may match multiple links, or none.
 
 **Parameters**
 
@@ -439,7 +439,7 @@ Remove the item with the with a link to the given `url` from the the trail, retu
 **Remarks**
 - Additional routing information is not included in the comparison.
 - `url` is defined as nullable to allow the result of a `Url.Action()`, however, a `null` value will throw a Argument Null exception.
-	
+
 **Exceptions**
 
 |   Exception   | Description |
@@ -448,7 +448,7 @@ Remove the item with the with a link to the given `url` from the the trail, retu
 
 **Example**
 
-To remove the breadrumb with a reference to the Index action of the Example controller from the trail:
+To remove the breadcrumb with a reference to the Index action of the Example controller from the trail:
 ```csharp
 if ( user.Breadcrumbs.RemoveLink(Url.Action("Index", "Example") > 0 ) {
   // Breadcrumbs where removed
@@ -470,11 +470,11 @@ Remove the last link in the trail and return the URL associated with the previou
 
 |   Exception   | Description |
 |---------------|-------------|
-| Invalid Operation | If the tail does not contain a parient link. |
+| Invalid Operation | If the tail does not contain a parent link. |
 
 **Example**
 
-To read the URL of the parient action a method/action would use:
+To read the URL of the parent action a method/action would use:
 ```CSharp
 return RedirectToAction(user.Breadcrumbs.Drop());
 ```
@@ -484,7 +484,7 @@ return RedirectToAction(user.Breadcrumbs.Drop());
 ## Trucating the Trail
 <div style="margin-left: 1em;">
 
-These methods will remove items from the end of the breadcrumb trail, to a certin point, depending on which method is used.  They all return the modified breadcurmb trail, allowing the add methods to be chained in a fluent manner.
+These methods will remove items from the end of the breadcrumb trail, to a certain point, depending on which method is used.  They all return the modified breadcrumb trail, allowing the add methods to be chained in a fluent manner.
 
 ### Clear()
 <div style="margin-left: 1em;">
@@ -496,11 +496,11 @@ Remove all breadcrumb items (both links and placeholders) from the trail, return
 
 **Example**
 
-To remove the breadrumb item "Example" from the trail:
+To remove the breadcrumb item "Example" from the trail:
 ```csharp
 user.Breadcrumbs
-	.Clear()
-	.Add("Home", "~/Home/Index");
+  .Clear()
+  .Add("Home", "~/Home/Index");
 ```
 </div>
 
@@ -520,7 +520,7 @@ Remove all breadcrumb items **after** the first breadcrumb with a link to the gi
 | `action`     | string     | Name of the action. |
 
 **Remarks**
-- The controller name is derived from the `controller` object, alling the use of the `this` keyword when providing the `controller` parameter.
+- The controller name is derived from the `controller` object, allowing the use of the `this` keyword when providing the `controller` parameter.
 - Additional routing information is not included in the comparison.
 - The order of the parameters are intended to be different from the normal order to make users think.
 - The `action` parameter is optional, when not given it will assume the name of the current action.
@@ -616,7 +616,7 @@ user.Breadcrumbs
 Breadcrumb ClearLink(string? url)
 ```
 
-Remove all items **after** the breadcrumb with a link to the given `url` from the the trail.
+Remove all items **after** the breadcrumb with a link to the given `url` from the trail.
 
 **Parameters**
 
@@ -627,7 +627,7 @@ Remove all items **after** the breadcrumb with a link to the given `url` from th
 **Remarks**
 - Additional routing information is not included in the comparison.
 - `url` is defined as nullable to allow the result of a `Url.Action()`, however, a `null` value will throw a Argument Null exception.
-	
+
 **Exceptions**
 
 |   Exception   | Description |
@@ -636,7 +636,7 @@ Remove all items **after** the breadcrumb with a link to the given `url` from th
 
 **Example**
 
-To remove all breadrumb items after the link to the Index action of the ExampleConttroller from the trail and then add a link to the Details action:
+To remove all breadcrumb items after the link to the Index action of the ExampleConttroller from the trail and then add a link to the Details action:
 ```csharp
 user.Breadcrumbs
   .ClearLink(Url.Action("Index", "Example")
@@ -668,3 +668,9 @@ public IActionResult Index() {
 
 ## Navigation Patterns
 
+# Further Reading
+<div style="margin-left: 1em;">
+
+- [Breadcrumbs](/Components/Breadcrumbs)
+- [Breadcrumb Tag Helpers](/Components/Breadcrumbs/Tag-Helpers)
+</div>
