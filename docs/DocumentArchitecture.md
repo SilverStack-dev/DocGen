@@ -1,7 +1,5 @@
 # Documentation Architecture
 
-[[_TOC_]]
-
 ## Introduction
 
 The purpose of this document is to define a documentation architecture capable of supporting both reference and conceptual documentation for .NET applications and frameworks.

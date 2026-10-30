@@ -138,7 +138,7 @@ This allows the same source model to support:
 
 The following documents currently define the proposal:
 
-- DocumentationArchitecture.md
-- Spikes.md
+- [Documentation Architecture](DocumentArchitecture.md)
+- [Spikes](Spikes.md)
 
 The Discussion Summary records the decisions and reasoning that led to the current architecture.
